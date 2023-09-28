@@ -1,0 +1,83 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+
+    var itemsPerPage = 6;
+    var pageNumber = 1;
+    
+    if (!int.TryParse(Context.Request.Query["page"], out pageNumber))
+        pageNumber = 1;
+    
+	var selection = Umbraco?.Content(Guid.Parse("2f3ac03b-4c6a-4f1e-bdc1-53baeeede762"))?
+    .ChildrenOfType("newsItemPage")?
+    .Where(x => x.IsVisible())
+    .OrderByDescending(x => x.CreateDate).ToList();
+    
+    var totalItems = selection?.Count() ?? 0;
+    var pagedItems = selection?.Skip((pageNumber -1) * itemsPerPage).Take(itemsPerPage); 
+}
+
+    <section class="article-section">
+        <div class="container">
+            <div class="browse-news">
+                <h2>Our News & Articles</h2>
+            </div>
+            <div class="articles">
+
+            @if(pagedItems != null)
+            {
+            	@foreach (var item in pagedItems!)
+            	{
+            	    var url = item.Url();
+            	    var date = item.CreateDate;
+            	    var image = item.Value<IPublishedContent>("newsImage");
+            	    var category = item.Value("newsCategory");
+            	    var title = item.Name();
+            	    var preamble = item.Value("newsPreamble");
+    	    
+            	    <a href="@url" class="article">
+                        <div class="article-date">
+                        <div class="day">@date.ToString("dd")</div>
+                            <div class="month">@date.ToString("MMM")</div>
+                        </div>
+                        <img src="@image?.Url()" alt="">
+                        <p>@category</p>
+                        <h5>@title</h5>
+                        <p>@preamble</p>
+                    </a>
+                }
+            }
+                
+                
+            </div>
+            
+            
+            <div class="carousel-pages">
+                
+                @if(pageNumber > 1)
+                {
+                    <a href="?page=@(pageNumber - 1)" class="carousel-button"><i class="fa-solid fa-arrow-left"></i></a>
+                }
+                
+                @for (int i = 1; i <= Math.Ceiling((decimal)totalItems / itemsPerPage); i++)
+                    if(i == pageNumber)
+                    {
+                        <a href="#" class="carousel-button active">@i</a>
+                    }
+                    else
+                    {
+                        <a href="?page=@i" class="carousel-button">@i</a>
+                        
+                    }
+                
+                
+                 @if(pageNumber < Math.Ceiling((decimal)totalItems / itemsPerPage))
+                {
+                    <a href="?page=@(pageNumber + 1)" class="carousel-button"><i class="fa-solid fa-arrow-right"></i></a>
+                }
+                
+            </div>
+
+
+        </div>
+    </section>

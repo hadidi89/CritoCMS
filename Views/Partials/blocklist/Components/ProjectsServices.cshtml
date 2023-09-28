@@ -1,0 +1,20 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models
+@{
+    var content = (ContentModels.ProjectsServices)Model.Content;
+    var ProjectServicesImage = content.Value<MediaWithCrops>("ProjectServicesImage");
+}
+
+
+<a href="@content.Value("projectServicesButtonUrl")" class="project">
+    @if (ProjectServicesImage != null)
+    {
+        <img src="@content.Value("projectServicesImage")" alt="">
+    }
+    <h5>@content.Value("projectServicesTitle")</h5>
+    <p>@content.Value("projectServicesButton")<i class="fa-regular fa-arrow-up-right"></i></p>
+</a>
+
+
+

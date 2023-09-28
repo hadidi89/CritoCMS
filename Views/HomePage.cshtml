@@ -1,0 +1,16 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.HomePage>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "LayoutWithShowcase.cshtml";
+}
+@await Html.PartialAsync("_BrandSection")
+@await Html.PartialAsync("_FeatureSection")
+@await Html.PartialAsync("_AboutSection")
+@await Html.PartialAsync("_ServiceSection")
+@await Html.PartialAsync("_ChooseusSection")
+@await Html.PartialAsync("_ProjectSection")
+@await Html.PartialAsync("_TeamSection")
+@await Html.PartialAsync("_TestimoialSection")
+@await Html.PartialAsync("_ArticleSection")
+@await Html.PartialAsync("_NewsletterSection")
