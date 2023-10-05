@@ -724,95 +724,83 @@ html, body {
             font-weight: 500;
         }
 /*testimoial-section ------------------------------------------------------------------------------------------*/
-.testimoial-section {
+ .testimoial-section{
     text-align: center;
     background-color: #f0d082;
     position: relative;
     z-index: 0;
     padding: 60px 0 0px 0;
     padding-bottom: 120px;
-}
-
-    .testimoial-section .container .section-border {
-        margin: -50px -90px;
-        padding: 120px 80px;
-        background-color: #ffffff;
-    }
-
-        .testimoial-section .container .section-border .section-title {
-            margin-bottom: 15px;
-        }
-
-        .testimoial-section .container .section-border h2 {
-            font-family: "DM Sans", sans-serif;
-            font-size: 45px;
-            font-weight: 700;
-            margin-bottom: 60px;
-        }
-
-        .testimoial-section .container .section-border .testimonials {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            gap: 100px;
-            margin-bottom: 40px;
-        }
-
-            .testimoial-section .container .section-border .testimonials .testimonial {
-                text-align: left;
-            }
-
-                .testimoial-section .container .section-border .testimonials .testimonial .rating {
-                    margin: 20px 0;
-                    color: #f94d1c;
-                }
-
-                .testimoial-section .container .section-border .testimonials .testimonial .writer {
-                    text-align: left;
-                    align-items: center;
-                    display: grid;
-                    grid-template-columns: 90px 1fr;
-                    grid-template-areas: "img name" "img position";
-                }
-
-                    .testimoial-section .container .section-border .testimonials .testimonial .writer img {
-                        grid-area: img;
-                        border-radius: 50%;
-                        height: 70px;
-                        width: 70px;
-                        -o-object-fit: cover;
-                        object-fit: cover;
-                        margin-top: 15px;
-                    }
-
-                    .testimoial-section .container .section-border .testimonials .testimonial .writer h5 {
-                        grid-area: name;
-                        font-family: "DM Sans", sans-serif;
-                        font-size: 22px;
-                        font-weight: 700;
-                        margin: 30px 0 0 0;
-                    }
-
-                    .testimoial-section .container .section-border .testimonials .testimonial .writer h5 {
-                        grid-area: name;
-                        font-family: "DM Sans", sans-serif;
-                        font-size: 22px;
-                        font-weight: 700;
-                        margin: 30px 0 0 0;
-                    }
-
-                    .testimoial-section .container .section-border .testimonials .testimonial .writer p {
-                        grid-area: position;
-                        font-family: "Inter", sans-serif;
-                        font-size: 16px;
-                        font-weight: 400;
-                        color: #f94d1c;
-                    }
-
-        .testimoial-section .container .section-border a {
-            display: inline-block;
-            margin: 50px 0 0 0;
-        }
+ }
+ .testimoial-section .container .section-border{
+    margin: -50px -90px;
+    padding: 120px 80px;
+    background-color: #ffffff;
+ }
+ .testimoial-section .container .section-border .section-title{
+    margin-bottom: 15px;
+ }
+ .testimoial-section .container .section-border h2{
+    font-family: "DM Sans", sans-serif;
+    font-size: 45px;
+    font-weight: 700;
+    margin-bottom: 60px;
+ }
+ .testimoial-section .container .section-border .testimonials .umb-block-list {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 100px;
+    margin-bottom: 40px;
+ }
+ .testimoial-section .container .section-border .testimonials .umb-block-list .testimonial{
+    text-align: left;
+ }
+ .testimoial-section .container .section-border .testimonials .umb-block-list .testimonial .rating{
+    margin: 20px 0;
+    color: #f94d1c;
+ }
+ .testimoial-section .container .section-border .testimonials .umb-block-list .testimonial .writer{
+    text-align: left;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    grid-template-areas: "img name" "img position";
+ }
+ .testimoial-section .container .section-border .testimonials .umb-block-list .testimonial .writer img{
+    grid-area: img;
+    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    -o-object-fit: cover;
+       object-fit: cover;
+    margin-top: 15px;
+ }
+ .testimoial-section .container .section-border .testimonials .umb-block-list .testimonial .writer h5{
+    grid-area: name;
+    font-family: "DM Sans", sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 30px 0 0 0;
+ }
+ .testimoial-section .container .section-border .testimonials .umb-block-lis .testimonial .writer h5{
+    grid-area: name;
+    font-family: "DM Sans", sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 30px 0 0 0;
+ }
+ .testimoial-section .container .section-border .testimonials .umb-block-list .testimonial .writer p{
+    grid-area: position;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #f94d1c;
+ }
+ .testimoial-section .container .section-border a{
+    display: inline-block;
+    margin: 50px 0 0 0;
+ }
 /*Article ------------------------------------------------------------------------------------------*/
 .article-section {
     position: relative;
@@ -960,11 +948,11 @@ html, body {
             font-weight: 700;
         }
 
-.newletter-section .container form {
+.newletter-section .container .form {
     display: flex;
 }
 
-.newsletter-section .container form input {
+.newsletter-section .container .form input {
     border-radius: 25px;
     padding: 8px 20px;
     margin-right: 20px;

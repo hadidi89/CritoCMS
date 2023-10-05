@@ -1,40 +1,74 @@
 ﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 
+@{
+
+    var itemsPerPage = 4;
+    var pageNumber = 1;
+    
+    if (!int.TryParse(Context.Request.Query["page"], out pageNumber))
+        pageNumber = 1;
+    
+	var selection = Umbraco?.Content(Guid.Parse("0bd9d194-818e-4449-9bc6-3c90b2538c51"))?
+    .ChildrenOfType("empoloyeesItemPage")?
+    .Where(x => x.IsVisible())
+    .OrderByDescending(x => x.CreateDate).ToList();
+    
+    var totalItems = selection?.Count() ?? 0;
+    var pagedItems = selection?.Skip((pageNumber -1) * itemsPerPage).Take(itemsPerPage); 
+}
+
     <section class="team-section">
         <div class="container">
-            <div class="section-title">Meet Our Team</div>
+            <div class="section-title">@Model.Value("empoloyeesHeading")</div>
             <div class="browse-team">
-                <h2>Experience Team Members</h2>
-                <a class="btn-outline-dark" href="#">Browse Team <i class="fa-regular fa-arrow-up-right"></i></a>
+                <h2>@Model.Value("empoloyeesTitle")</h2>
+                <a class="btn-outline-dark" href="@Model.Value("empoloyeesButtonUrl")">@Model.Value("empoloyeesButton") <i class="fa-regular fa-arrow-up-right"></i></a>
             </div>
             <div class="team-members">
-                <div class="member">
-                    <img src="images/placeholders/Kristine-Palmer.svg" alt="">
-                    <h5>Kristine Palmer</h5>
-                    <p>Chef Operation Officer</p>
-                </div>
-                <div class="member">
-                    <img src="images/placeholders/Mark-Aubri.svg" alt="">
-                    <h5>Mark Aubri</h5>
-                    <p>Senior Consultant</p>
-                </div>
-                <div class="member">
-                    <img src="images/placeholders/Kimberly-Hansen.svg" alt="">
-                    <h5>Kimberly Hansen</h5>
-                    <p>Senior Consultant</p>
-                </div>
-                <div class="member">
-                    <img src="images/placeholders/Justin-Willoman.svg" alt="">
-                    <h5>Justin Willoman</h5>
-                    <p>Senior Tech Consultant</p>
-                </div>
+            
+                
+            	@if(pagedItems != null)
+            	{
+            	    @foreach (var item in pagedItems)
+                	{
+                	    var url = item.Url();
+                	    var image = item.Value<IPublishedContent>("empoloyeesImage");
+                	    var position = item.Value("empoloyeesPosition");
+                	    var name = item.Name();
+            	    <div class="member">
+            			<img src="@image?.Url()" alt="">
+                        <h5>@name</h5>
+                        <p>@position</p>
+                    </div>
+        	        }
+            	}
+                
             </div>
+            
             <div class="dot-circles">
-                <div class="dot-circle active"></div>
-                <div class="dot-circle"></div>
-                <div class="dot-circle"></div>
-                <div class="dot-circle"></div>
-                <div class="dot-circle"></div>
+                
+                @if(pageNumber > 1)
+                {
+                    <a href="?page=@(pageNumber - 1)" class="dot-circle"></a>
+                }
+                
+                @for (int i = 1; i <= Math.Ceiling((decimal)totalItems / itemsPerPage); i++)
+                    if(i == pageNumber)
+                    {
+                        <a href="#" class="dot-circle active"style="display: none;">@i</a>
+                    }
+                    else
+                    {
+                        <a href="?page=@i" class="dot-circle"style="display: none;">@i</a>
+                        
+                    }
+                
+                
+                @if(pageNumber < Math.Ceiling((decimal)totalItems / itemsPerPage))
+                {
+                    <a href="?page=@(pageNumber + 1)" class="dot-circle"></a>
+                }
+                
             </div>
         </div>
     </section>

@@ -44,20 +44,20 @@
                         <h3>Recent Posts</h3>
                         <div class="post">
                             <h5>How To Blow Through Capital At An Incredible Rate</h5>
-                            <p>Jan 14, 2020</p>
+                            <p>@Model.CreateDate.ToString("MM,dd,yyyy")</p>
                         </div>
                         <div class="post">
   
                             <h5>Design Studios That Everyone Should Know About? </h5>
-                            <p>Jan 14, 2020</p>
+                            <p>@Model.CreateDate.ToString("MM,dd,yyyy")</p>
                         </div>
                         <div class="post">
                             <h5>How did we get 1M+ visitors in 30 days without anything!</h5>
-                            <p>Jan 14, 2020</p>
+                            <p>@Model.CreateDate.ToString("MM,dd,yyyy")</p>
                         </div>
                         <div class="post">
                             <h5>Figma On Figma: How We Built Our Website Design System</h5>
-                            <p>Jan 14, 2020</p>
+                            <p>@Model.CreateDate.ToString("MM,dd,yyyy")</p>
                         </div>
                     </div>
                     <div class="categories">
@@ -98,51 +98,6 @@
         </div>
     </section>
     <!--Aerticle-section-->
-    <section class="article-section" style="background-color: #F0EFE9;">
-        <div class="container">
-            <div class="section-title">Article & News</div>
-            <div class="browse-news">
-                <h2>Get Every Single Articles & News</h2>
-                <a class="btn-outline-dark" href="#">Browse Articles<i class="fa-regular fa-arrow-up-right"></i></a>
-            </div>
-            <div class="articles">
-                <a href="#" class="article">
-                    <div class="article-date">
-                        <div class="day">25</div>
-                        <div class="month">Mar</div>
-                    </div>
-                    <img src="images/placeholders/Digitalization.svg" alt="">
-                    <p>Business</p>
-                    <h5>How To Use Digitalization In The Classroom</h5>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto sed hic libero.</p>
-                </a>
-                <a href="#" class="article">
-                    <div class="article-date">
-                        <div class="day">17</div>
-                        <div class="month">Mar</div>
-                    </div>
-                    <img src="images/placeholders/Chat-GPT.svg" alt="">
-                    <p>Business</p>
-                    <h5>How To Implement Chat GPT In Your Projects</h5>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto sed hic libero.</p>
-                </a>
-                <a href="#" class="article">
-                    <div class="article-date">
-                        <div class="day">13</div>
-                        <div class="month">Mar</div>
-                    </div>
-                    <img src="images/placeholders/CSS-Design.svg" alt="">
-                    <p>Business</p>
-                    <h5>The Guide To Support Modern CSS Design</h5>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto sed hic libero.</p>
-                </a>
-            </div>
-            <div class="dot-circles">
-                <div class="dot-circle active"></div>
-                <div class="dot-circle"></div>
-                <div class="dot-circle"></div>
-                <div class="dot-circle"></div>
-                <div class="dot-circle"></div>
-            </div>
-        </div>
-    </section>
+    <div style="background-color: #f0d082;">
+        @await Html.PartialAsync("_ArticleSection")
+    </div>

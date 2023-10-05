@@ -1,11 +1,37 @@
 ﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
-    <section class="newsletter-section">
-        <img class="background-wavy-lines-right" src="images/placeholders/wavy.svg" alt="">
-        <div class="container">
-            <h2>Get News Updates By Signup </h2>
-            <form method="post" action="subscribe.php">
-                <input type="email" placeholder="username@domain.com">
-                <button class="btn-theme">Subscribe <i class="fa-regular fa-arrow-up-right"></i></button>
-            </form>
-        </div>
-    </section>
+
+
+@{
+    var newsLetterForm = new Crito.Models.NewsLetterForm();
+}
+
+<section class="newsletter-section">
+    <div class="container">
+        <h2>@Model.Value("newsLetterTitle") </h2>
+
+
+        @using (Html.BeginUmbracoForm("Index", "Home", FormMethod.Post, new { @novalidate = "novalidate", onsubmit = "validateSignupForm(event)", id = "signup-email-form" }))
+        {
+            <div asp-validation-summary="ModelOnly" class="text-danger no-bullets"></div>
+
+            <input asp-for="@newsLetterForm.Email" type="email" id="signup-email-input" onkeyup="errorMessageSignupEmail(event)" required placeholder="username@domain.com" />
+            <span asp-validation-for="@newsLetterForm.Email" class="text-danger"></span>
+
+            <button type="submit" class="btn-theme">@Model.Value("newsLetterButton")<i class="fa-regular fa-arrow-up-right"></i></button>
+
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <span class="text-success" id="signup-email-success">@TempData["SuccessMessage"]</span>
+            }
+
+            @if (TempData["AlreadyRegisteredMessage"] != null)
+            {
+                <span class="text-danger" id="sigup-email-already-registered">@TempData["AlreadyRegisteredMessage"]</span>
+            }
+        }
+
+
+    </div>
+</section>
+
+

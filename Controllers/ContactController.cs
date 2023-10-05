@@ -13,28 +13,36 @@ namespace Crito.Controllers
 {
     public class ContactController : SurfaceController
     {
-        public ContactController(IUmbracoContextAccessor umbracoContextAccessor, IUmbracoDatabaseFactory databaseFactory, ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger, IPublishedUrlProvider publishedUrlProvider) : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
+        private readonly ContactMessageService _contactMessageService;
+
+        public ContactController(IUmbracoContextAccessor umbracoContextAccessor, IUmbracoDatabaseFactory databaseFactory, ServiceContext services, AppCaches appCaches, IProfilingLogger profilingLogger, IPublishedUrlProvider publishedUrlProvider, ContactMessageService contactMessageService) : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
         {
+            _contactMessageService = contactMessageService;
         }
 
-
-        [HttpPost]
-        public IActionResult Index (ContactForm contactForm)
+        public async Task<IActionResult> Index(ContactForm contactForm)
         {
             if (!ModelState.IsValid)
             {
+                TempData.Clear();
+                ModelState.AddModelError("", "Please, have a look at the current error message/messages!");
                 return CurrentUmbracoPage();
             }
 
-            using var mail = new MailService("no-reply@crito.com", "smtp.crito.com", 587, "contactform@crito.com", "BytMig123!");
-            // to sender
-            mail.SendAsync(contactForm.Email, "Your contact request was receivd.", "Hi your request was received and we will be in contact with you as soon as possible").ConfigureAwait(false);
+            var registered = await _contactMessageService.AddContactMessageAsync(contactForm);
 
+            TempData.Clear();
+            if (registered)
+            {
+                TempData["SuccessMessage"] = "Your message has now been sent!";
+                ModelState.Clear();
+            }
+            else
+                TempData["AlreadyRegisteredMessage"] = "Something went wrong! The message wasn't sent!";
 
-            // to us 
-            mail.SendAsync("umbraco@crito.com", $"{contactForm.Name} sent a contact request", contactForm.Message).ConfigureAwait(false);
-
-            return LocalRedirect(contactForm.RedirectUrl ?? "/");
+            return CurrentUmbracoPage();
         }
     }
 }
+
+

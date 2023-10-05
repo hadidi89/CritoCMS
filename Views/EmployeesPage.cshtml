@@ -1,9 +1,9 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.NewsPage>
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.EmployeesPage>
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @using Umbraco.Cms.Core.Models.PublishedContent;
 @{
 	Layout = "LayoutWi.cshtml";
 }
-@await Html.PartialAsync("_ArticleNewsSection")
-@await Html.PartialAsync("_NewsletterSection")
+
+ @await Html.PartialAsync("_TeamSection")

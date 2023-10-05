@@ -1,5 +1,5 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Contact>
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @{
     Layout = "LayoutWi.cshtml";
@@ -28,23 +28,31 @@
             <h2>Leave us a message for any information.</h2>
 
 
-            @using (Html.BeginUmbracoForm("Index", "Contact", FormMethod.Post))
+        @using (Html.BeginUmbracoForm("Index", "Contact", FormMethod.Post, new { @novalidate = "novalidate", id = "contact-form", onsubmit = "validateContactForm(event)" }))
+        {
+            <div asp-validation-summary="ModelOnly" class="text-danger ms-4 mb-5 no-bullets text-center"></div>
+            @if (TempData["SuccessMessage"] != null)
             {
-                <div asp-validation-summary="ModelOnly"></div>
-
-                <input asp-for="@contactForm.Name" type="name" placeholder="Name*">
-                <span asp-validation-for="@contactForm.Name" class="text-danger" style="margin-left: -800px;"></span>
-
-                <input asp-for="@contactForm.Email" type="email" placeholder="email*">
-                <span asp-validation-for="@contactForm.Email" class="text-danger" style="margin-left: -800px;"></span>
-
-                <textarea asp-for="@contactForm.Message" cols="30" rows="10" placeholder="Your Message*"></textarea>
-                <span asp-validation-for="@contactForm.Message" class="text-danger" style="margin-left: -780px;"></span>
-                <div class="grid">
-                    <button type="submit" class="btn-theme">Send Message <i class="fa-regular fa-arrow-up-right"></i></button>
-                </div>  
-
+                <div class="text-success mb-5 text-center" id="contact-form-success">@TempData["SuccessMessage"]</div>
             }
+            @if (TempData["AlreadyRegisteredMessage"] != null)
+            {
+                <span class="text-danger mb-5 text-center" id="contact-form-already-registered">@TempData["AlreadyRegisteredMessage"]</span>
+            }
+
+            <input asp-for="@contactForm.Name" required type="text" placeholder="Name*" id="contact-name-input" onkeyup="errorMessageContactName(event)" class="mb-0">
+            <span asp-validation-for="@contactForm.Name" class="text-danger" style="margin-left: -830px;"></span>
+
+            <input asp-for="@contactForm.Email" required type="email" placeholder="Email*" id="contact-email-input" onkeyup="errorMessageContactEmail(event)" class="mb-0">
+            <span asp-validation-for="@contactForm.Email" class="text-danger" style="margin-left: -830px;"></span>
+
+            <textarea asp-for="@contactForm.Message" cols="30" rows="10" placeholder="Your Message*" id=" contact-message-input" onkeyup="errorMessageContactMessage(event)"></textarea>
+            <span asp-validation-for="@contactForm.Message" class="text-danger" style="margin-left: -830px;"></span>
+
+            <div class="grid">
+                <button type="submit" class="btn-theme">Send Message <i class="fa-regular fa-arrow-up-right"></i></button>
+            </div>
+        }
         </div>
     </section>
     
@@ -53,3 +61,4 @@
             <iframe src="@Model.Value("googleMapUrl")" width="100%" height="650" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </section>
+
