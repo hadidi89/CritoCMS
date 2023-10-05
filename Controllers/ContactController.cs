@@ -41,9 +41,6 @@ namespace Crito.Controllers
                 TempData["AlreadyRegisteredMessage"] = "There was an issue! The message did not go through!";
 
             return CurrentUmbracoPage();
-
-
-
         }
     }
 }
