@@ -25,7 +25,7 @@ namespace Crito.Controllers
             if (!ModelState.IsValid)
             {
                 TempData.Clear();
-                ModelState.AddModelError("", "Please, have a look at the current error message/messages!");
+                ModelState.AddModelError("", "Please review the current error message(s)!");
                 return CurrentUmbracoPage();
             }
 
@@ -34,11 +34,11 @@ namespace Crito.Controllers
             TempData.Clear();
             if (registered)
             {
-                TempData["SuccessMessage"] = "Your message has now been sent!";
+                TempData["SuccessMessage"] = "Your message has been successfully dispatched!";
                 ModelState.Clear();
             }
             else
-                TempData["AlreadyRegisteredMessage"] = "Something went wrong! The message wasn't sent!";
+                TempData["AlreadyRegisteredMessage"] = "There was an issue! The message did not go through!";
 
             return CurrentUmbracoPage();
         }
